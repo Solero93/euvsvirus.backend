@@ -50,3 +50,7 @@ tasks.asciidoctor {
 	inputs.dir(snippetsDir)
 	dependsOn(tasks.test)
 }
+
+springBoot {
+	mainClassName = "com.euvsvirus.euvsvirus.EuvsvirusApplicationKt"
+}
