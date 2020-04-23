@@ -10,8 +10,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @WebMvcTest(controllers = [UserController::class])
 internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
     @Test
-    fun getUsersTest() {
-        mockMvc.perform(MockMvcRequestBuilders.get("/users"))
+    fun createUserTest() {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/user"))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }
