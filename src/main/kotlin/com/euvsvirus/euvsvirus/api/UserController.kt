@@ -4,7 +4,11 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping(path = ["/api/user"], produces = [MediaType.APPLICATION_JSON_VALUE])
+@RequestMapping(
+        path = ["/api/user"],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+        consumes = [MediaType.APPLICATION_JSON_VALUE]
+)
 class UserController {
     @PostMapping
     @ResponseBody
@@ -14,10 +18,13 @@ class UserController {
                     id = "randomId",
                     firstName = firstName,
                     lastName = lastName,
-                    email = email,
-                    token = "thisisatoken"
+                    email = email
             )
         }
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    fun getUser(@PathVariable("id") userId: String): Unit {
+    }
 }

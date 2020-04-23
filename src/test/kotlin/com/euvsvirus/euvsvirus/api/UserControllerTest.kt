@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @WebMvcTest(controllers = [UserController::class])
 internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
     @Test
-    fun `when creating a user, a user should be created in the system`() {
+    fun `when creating a user, the same user should be returned`() {
         val userRequest = JSONObject().apply {
             put("firstName", "Peter")
             put("lastName", "Parker")
@@ -32,6 +32,27 @@ internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
                 .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
                 .andExpect(jsonPath("password").doesNotExist())
-                .andExpect(jsonPath("token").isString)
+    }
+
+    @Test
+    fun `After creating a user, when getting the user from the system, the same user should be returned`() {
+        val userRequest = JSONObject().apply {
+            put("firstName", "Peter")
+            put("lastName", "Parker")
+            put("email", "peterparker@mail.com")
+            put("password", "thisisasecret")
+        }
+
+        val response = mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(userRequest.toString()))
+                .andReturn().response.contentAsString
+        val jsonResponse = JSONObject(response)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${jsonResponse.get("id")}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+
     }
 }
