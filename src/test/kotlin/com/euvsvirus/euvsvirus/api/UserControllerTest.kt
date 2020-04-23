@@ -8,12 +8,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
 internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
     @Test
-    fun createUserTest() {
+    fun `when creating a user, a user should be created in the system`() {
         val userRequest = JSONObject().apply {
             put("firstName", "Peter")
             put("lastName", "Parker")
@@ -25,11 +26,12 @@ internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(userRequest.toString()))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("firstName", `is`(userRequest.get("firstName"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("lastName", `is`(userRequest.get("lastName"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("email", `is`(userRequest.get("email"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("password").doesNotExist())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").isString)
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("id").isString)
+                .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
+                .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
+                .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
+                .andExpect(jsonPath("password").doesNotExist())
+                .andExpect(jsonPath("token").isString)
     }
 }
