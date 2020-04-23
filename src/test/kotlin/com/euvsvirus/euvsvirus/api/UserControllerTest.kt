@@ -53,6 +53,12 @@ internal class UserControllerTest(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${jsonResponse.get("id")}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
+                .andExpect(jsonPath("id", `is`(jsonResponse.get("id"))))
+                .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
+                .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
+                .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
+                .andExpect(jsonPath("password").doesNotExist())
+                .andExpect(jsonPath("token").doesNotExist())
 
     }
 }

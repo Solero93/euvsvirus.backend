@@ -25,6 +25,12 @@ class UserController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    fun getUser(@PathVariable("id") userId: String): Unit {
+    fun getUser(@PathVariable("id") userId: String): GetUserResponse {
+        return GetUserResponse(
+                id = userId,
+                firstName = "Peter",
+                lastName = "Parker",
+                email = "peterparker@mail.com"
+        )
     }
 }
