@@ -1,3 +1,3 @@
 package com.euvsvirus.euvsvirus.api
 
-data class CreateUserRequest(val firstName: String)
+data class CreateUserRequest(val firstName: String, val lastName: String, val email: String, val password: String)

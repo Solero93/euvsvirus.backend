@@ -10,7 +10,9 @@ class UserController {
     @PostMapping
     @ResponseBody
     fun createUser(@RequestBody createUserRequest: CreateUserRequest): CreateUserResponse {
-        return CreateUserResponse(createUserRequest.firstName)
+        with(createUserRequest) {
+            return CreateUserResponse(firstName, lastName, email, "thisisatoken")
+        }
     }
 
 }
