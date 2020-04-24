@@ -16,3 +16,11 @@ COPY --from=buildContainer ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=buildContainer ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=buildContainer ${DEPENDENCY}/BOOT-INF/classes /app
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.euvsvirus.euvsvirus.EuvsvirusApplicationKt"]
+
+
+#FROM python:3.7-alpine AS acceptanceTestContainer
+#ARG TEST_HOME=/usr/acceptance/
+#WORKDIR ${TEST_HOME}
+#COPY acceptance/setup.py ${TEST_HOME}
+#COPY acceptance/test/ ${TEST_HOME}/test/
+#RUN python -m unittest discover -s ${TEST_HOME}/test
