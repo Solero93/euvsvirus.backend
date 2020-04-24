@@ -32,6 +32,13 @@ class UserController {
 
     @PostMapping("/login", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun login(): Unit {
+    fun login(@RequestBody loginRequest: LoginUserRequest): LoginUserResponse {
+        return LoginUserResponse(
+                id = "randomId",
+                firstName = "Peter",
+                lastName = "Parker",
+                email = loginRequest.email,
+                token = "randomToken"
+        )
     }
 }
