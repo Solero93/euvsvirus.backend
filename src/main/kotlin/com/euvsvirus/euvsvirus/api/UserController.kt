@@ -29,4 +29,9 @@ class UserController {
                 email = "peterparker@mail.com"
         )
     }
+
+    @PostMapping("/login", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @ResponseBody
+    fun login(): Unit {
+    }
 }
