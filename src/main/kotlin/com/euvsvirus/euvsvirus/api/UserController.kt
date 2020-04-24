@@ -1,5 +1,6 @@
 package com.euvsvirus.euvsvirus.api
 
+import com.euvsvirus.euvsvirus.application.CreateUser
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
@@ -8,21 +9,11 @@ import org.springframework.web.bind.annotation.*
 class UserController {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun createUser(@RequestBody createUserRequest: CreateUserRequest): CreateUserResponse {
-        with(createUserRequest) {
-            return CreateUserResponse(
-                    id = "randomId",
-                    firstName = firstName,
-                    lastName = lastName,
-                    email = email,
-                    avatarUrl = "randomUrl"
-            )
-        }
-    }
+    fun createUserEndpoint(@RequestBody createUserRequest: CreateUserRequest): CreateUserResponse = CreateUser.invoke(createUserRequest)
 
     @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getUser(@PathVariable("id") userId: String): GetUserResponse {
+    fun getUserEndpoint(@PathVariable("id") userId: String): GetUserResponse {
         return GetUserResponse(
                 id = userId,
                 firstName = "Peter",
@@ -34,7 +25,7 @@ class UserController {
 
     @PostMapping("/login", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun login(@RequestBody loginRequest: LoginUserRequest): LoginUserResponse {
+    fun loginEndpoint(@RequestBody loginRequest: LoginUserRequest): LoginUserResponse {
         return LoginUserResponse(
                 id = "randomId",
                 firstName = "Peter",
