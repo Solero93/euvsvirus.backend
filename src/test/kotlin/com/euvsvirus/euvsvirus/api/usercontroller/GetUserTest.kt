@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.api.usercontroller
 
 import com.euvsvirus.euvsvirus.api.UserController
-import org.hamcrest.Matchers
+import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,7 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
 internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
@@ -31,12 +32,13 @@ internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${jsonResponse.get("id")}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("id", Matchers.`is`(jsonResponse.get("id"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("firstName", Matchers.`is`(userRequest.get("firstName"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("lastName", Matchers.`is`(userRequest.get("lastName"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("email", Matchers.`is`(userRequest.get("email"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("password").doesNotExist())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").doesNotExist())
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("id", `is`(jsonResponse.get("id"))))
+                .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
+                .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
+                .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
+                .andExpect(jsonPath("password").doesNotExist())
+                .andExpect(jsonPath("avatarUrl").isString)
+                .andExpect(jsonPath("token").doesNotExist())
     }
 }

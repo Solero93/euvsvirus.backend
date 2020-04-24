@@ -32,6 +32,7 @@ internal class CreateUserTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
                 .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
                 .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
+                .andExpect(jsonPath("avatarUrl").isString)
                 .andExpect(jsonPath("password").doesNotExist())
     }
 }

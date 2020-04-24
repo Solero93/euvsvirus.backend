@@ -14,7 +14,8 @@ class UserController {
                     id = "randomId",
                     firstName = firstName,
                     lastName = lastName,
-                    email = email
+                    email = email,
+                    avatarUrl = "randomUrl"
             )
         }
     }
@@ -26,7 +27,8 @@ class UserController {
                 id = userId,
                 firstName = "Peter",
                 lastName = "Parker",
-                email = "peterparker@mail.com"
+                email = "peterparker@mail.com",
+                avatarUrl = "randomUrl"
         )
     }
 
@@ -38,7 +40,8 @@ class UserController {
                 firstName = "Peter",
                 lastName = "Parker",
                 email = loginRequest.email,
-                token = "randomToken"
+                token = "randomToken",
+                avatarUrl = "randomUrl"
         )
     }
 }

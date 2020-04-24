@@ -9,7 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
 internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
@@ -24,12 +25,13 @@ internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(loginRequest.toString()))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("id").isString)
-                .andExpect(MockMvcResultMatchers.jsonPath("firstName").isString)
-                .andExpect(MockMvcResultMatchers.jsonPath("lastName").isString)
-                .andExpect(MockMvcResultMatchers.jsonPath("email", `is`(loginRequest.get("email"))))
-                .andExpect(MockMvcResultMatchers.jsonPath("password").doesNotExist())
-                .andExpect(MockMvcResultMatchers.jsonPath("token").isString)
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("id").isString)
+                .andExpect(jsonPath("firstName").isString)
+                .andExpect(jsonPath("lastName").isString)
+                .andExpect(jsonPath("email", `is`(loginRequest.get("email"))))
+                .andExpect(jsonPath("password").doesNotExist())
+                .andExpect(jsonPath("avatarUrl").isString)
+                .andExpect(jsonPath("token").isString)
     }
 }
