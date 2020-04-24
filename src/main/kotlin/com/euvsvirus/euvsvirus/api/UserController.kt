@@ -1,15 +1,16 @@
 package com.euvsvirus.euvsvirus.api
 
 import com.euvsvirus.euvsvirus.application.CreateUser
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = ["/api/user"])
-class UserController {
+class UserController(@Autowired val createUser: CreateUser) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun createUserEndpoint(@RequestBody createUserRequest: CreateUserRequest): CreateUserResponse = CreateUser.invoke(createUserRequest)
+    fun createUserEndpoint(@RequestBody createUserRequest: CreateUserRequest): CreateUserResponse = createUser.invoke(createUserRequest)
 
     @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
