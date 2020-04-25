@@ -4,6 +4,7 @@ import java.time.ZonedDateTime
 
 data class CreateWorkoutResponse(
         val id: String,
+        val userId: String,
         val datetimeStart: ZonedDateTime,
         val datetimeEnd: ZonedDateTime,
         val sport: String,

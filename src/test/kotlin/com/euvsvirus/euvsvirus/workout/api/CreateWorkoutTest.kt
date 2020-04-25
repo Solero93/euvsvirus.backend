@@ -36,6 +36,7 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
                 .content(workoutRequest.toString()))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("id").isString)
+                .andExpect(jsonPath("userId").isString)
                 .andExpect(jsonPath("datetimeStart").value(workoutRequest.get("datetimeStart")))
                 .andExpect(jsonPath("datetimeEnd").value(workoutRequest.get("datetimeEnd")))
                 .andExpect(jsonPath("sport").value(workoutRequest.get("sport")))

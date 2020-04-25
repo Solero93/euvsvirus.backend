@@ -1,7 +1,6 @@
 package com.euvsvirus.euvsvirus.workout.api
 
 import com.euvsvirus.euvsvirus.user.api.DatabaseCleaner
-import com.euvsvirus.euvsvirus.workout.api.WorkoutController
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -27,6 +26,7 @@ class GetAllWorkoutsTest(@Autowired val mockMvc: MockMvc) {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("results[0].id").isString)
+                .andExpect(jsonPath("results[0].userId").isString)
                 .andExpect(jsonPath("results[0].sport").isString)
                 .andExpect(jsonPath("results[0].raster[0]", hasSize<List<String>>(3)))
     }

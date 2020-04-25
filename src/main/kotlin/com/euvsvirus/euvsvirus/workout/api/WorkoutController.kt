@@ -16,7 +16,8 @@ class WorkoutController @Autowired constructor(val getWorkouts: GetWorkouts){
     @ResponseBody
     fun createWorkoutEndpoint(@RequestBody createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
         return CreateWorkoutResponse(
-                id = "1",
+                id = "RANDOM_ID",
+                userId = "RANDOM_USER_ID",
                 datetimeStart = createWorkoutRequest.datetimeStart,
                 datetimeEnd = createWorkoutRequest.datetimeEnd,
                 sport = createWorkoutRequest.sport,
