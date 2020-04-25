@@ -1,7 +1,6 @@
 package com.euvsvirus.euvsvirus.api.user
 
 import com.euvsvirus.euvsvirus.infrastructure.database.DatabaseUser
-import com.euvsvirus.euvsvirus.infrastructure.database.TokenDatabase
 import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
@@ -18,8 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
     @BeforeEach
     internal fun setUp() {
-        UserDatabase.clean()
-        TokenDatabase.clean()
+        DatabaseCleaner.clean()
     }
 
     @Test
