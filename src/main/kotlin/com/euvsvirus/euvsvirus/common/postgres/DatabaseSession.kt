@@ -10,6 +10,6 @@ object DatabaseSession {
     private val host = System.getenv("POSTGRES_HOST")
 
     fun getSession(): Session {
-        return sessionOf("jdbc:postgresql://$host/$database", username, password)
+        return sessionOf("jdbc:postgresql://$host/$database?currentSchema=public", username, password)
     }
 }
