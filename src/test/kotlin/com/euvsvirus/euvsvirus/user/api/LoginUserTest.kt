@@ -43,7 +43,6 @@ internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(loginRequest.toString()))
                 .andExpect(status().isOk)
-
                 .andExpect(jsonPath("id", `is`(user.id)))
                 .andExpect(jsonPath("firstName", `is`(user.firstName)))
                 .andExpect(jsonPath("lastName", `is`(user.lastName)))

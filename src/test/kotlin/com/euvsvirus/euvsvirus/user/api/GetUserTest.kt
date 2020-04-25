@@ -28,17 +28,29 @@ internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
             put("password", "thisisasecret")
         }
 
-        val response = mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
+        val createdUserResponse = JSONObject(mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(userRequest.toString()))
-                .andReturn().response.contentAsString
-        val jsonResponse = JSONObject(response)
+                .andReturn().response.contentAsString)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${jsonResponse.get("id")}")
-                .contentType(MediaType.APPLICATION_JSON))
+        val loginRequest = JSONObject().apply {
+            put("email", userRequest.get("email"))
+            put("password", userRequest.get("password"))
+        }
+
+        val token = JSONObject(mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(loginRequest.toString()))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("id", `is`(jsonResponse.get("id"))))
+                .andReturn().response.contentAsString).get("token")
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${createdUserResponse.get("id")}")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer $token"))
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("id", `is`(createdUserResponse.get("id"))))
                 .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
                 .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
                 .andExpect(jsonPath("email", `is`(userRequest.get("email"))))

@@ -22,13 +22,16 @@ class UserController @Autowired constructor(
 
     @GetMapping("/current", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getCurrentUserEndpoint(@RequestHeader(value="Authorization") authorization: String): GetUserResponse {
+    fun getCurrentUserEndpoint(@RequestHeader(value = "Authorization") authorization: String): GetUserResponse {
         return getUser.invoke(authorizeUser.invoke(authorization))
     }
 
     @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getUserEndpoint(@PathVariable("id") userId: String): GetUserResponse = getUser.invoke(userId)
+    fun getUserEndpoint(@RequestHeader(value = "Authorization") authorization: String, @PathVariable("id") userId: String): GetUserResponse {
+        authorizeUser.invoke(authorization)
+        return getUser.invoke(userId)
+    }
 
     @PostMapping("/login", consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody

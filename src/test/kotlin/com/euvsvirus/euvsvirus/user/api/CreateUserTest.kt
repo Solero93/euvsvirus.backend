@@ -43,6 +43,7 @@ internal class CreateUserTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
                 .andExpect(jsonPath("avatarUrl").isString)
                 .andExpect(jsonPath("password").doesNotExist())
+                .andExpect(jsonPath("token").doesNotExist())
                 .andReturn().response.contentAsString)
 
         val userInDatabase: DatabaseUser = UserDatabase.getUser(createdUser.getString("id"))!!

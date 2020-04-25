@@ -1,6 +1,8 @@
 package com.euvsvirus.euvsvirus.workout.api
 
 import com.euvsvirus.euvsvirus.user.api.DatabaseCleaner
+import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.DatabaseUser
+import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.UserDatabase
 import org.hamcrest.Matchers.hasSize
 import org.json.JSONArray
 import org.json.JSONObject
@@ -23,6 +25,28 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `When creating a workout, the created workout should be returned`() {
+        val user = DatabaseUser(
+                id = "random",
+                firstName = "Peter",
+                lastName = "Parker",
+                email = "peterparker@mail.com",
+                password = "thisisasecret",
+                avatarUrl = "randomUrl"
+        )
+        UserDatabase.storeUser(user)
+
+        val loginRequest = JSONObject().apply {
+            put("email", user.email)
+            put("password", user.password)
+        }
+
+        val token = JSONObject(mockMvc.perform(post("/api/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(loginRequest.toString()))
+                .andExpect(status().isOk)
+                .andReturn().response.contentAsString).get("token")
+
         val workoutRequest = JSONObject().apply {
             put("datetimeStart", "2007-11-03T16:18:05Z")
             put("datetimeEnd", "2007-11-03T18:18:05Z")
@@ -33,6 +57,7 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
         mockMvc.perform(post("/api/workout")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer $token")
                 .content(workoutRequest.toString()))
                 .andExpect(status().isOk)
                 .andExpect(jsonPath("id").isString)
