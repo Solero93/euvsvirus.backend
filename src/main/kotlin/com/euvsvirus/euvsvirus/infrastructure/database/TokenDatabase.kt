@@ -14,5 +14,5 @@ object TokenDatabase {
         return token
     }
 
-    fun obtainUserIdFromToken(token: String): String? = tokens.filterKeys { tokens[it] == token }.keys.first()
+    fun obtainUserIdFromToken(token: String): String? = tokens.filterKeys { tokens[it] == token }.keys.firstOrNull()
 }

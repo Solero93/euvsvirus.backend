@@ -58,4 +58,12 @@ internal class GetCurrentUserTest(@Autowired val mockMvc: MockMvc) {
                 .andExpect(jsonPath("avatarUrl", `is`(createUserResponse.get("avatarUrl"))))
                 .andExpect(jsonPath("token").doesNotExist())
     }
+
+    @Test
+    fun `Get current User with incorrect token should return 403`() {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer RANDOM_TOKEN"))
+                .andExpect(status().isForbidden)
+    }
 }
