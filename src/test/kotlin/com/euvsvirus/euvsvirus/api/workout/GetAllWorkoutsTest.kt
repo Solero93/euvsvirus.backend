@@ -1,6 +1,7 @@
 package com.euvsvirus.euvsvirus.api.workout
 
 import com.euvsvirus.euvsvirus.api.user.DatabaseCleaner
+import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,6 +25,8 @@ class GetAllWorkoutsTest(@Autowired val mockMvc: MockMvc) {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("results").exists())
+                .andExpect(jsonPath("results[0].id").isString)
+                .andExpect(jsonPath("results[0].sport").isString)
+                .andExpect(jsonPath("results[0].raster[0]", hasSize<List<String>>(3)))
     }
 }

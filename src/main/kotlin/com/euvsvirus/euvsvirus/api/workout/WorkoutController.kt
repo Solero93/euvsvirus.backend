@@ -1,5 +1,6 @@
 package com.euvsvirus.euvsvirus.api.workout
 
+import com.euvsvirus.euvsvirus.domain.Workout
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -13,7 +14,9 @@ class WorkoutController {
     @ResponseBody
     fun getWorkoutsEndpoint(): Any {
         return object {
-            val results = object {}
+            val results = listOf(
+                    Workout("RANDOM_ID", "RANDOM_SPORT", listOf(listOf(0.1f, 0.2f, 0.4f)))
+            )
         }
     }
 
