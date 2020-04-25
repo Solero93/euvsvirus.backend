@@ -1,6 +1,7 @@
 package com.euvsvirus.euvsvirus.user.api
 
 import com.euvsvirus.euvsvirus.DatabaseCleaner
+import com.euvsvirus.euvsvirus.UserMother
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.DatabaseUser
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.UserDatabase
 import org.assertj.core.api.Assertions.assertThat
@@ -61,21 +62,13 @@ internal class CreateUserTest(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `when creating a user with the same name as another, bad request should be returned and no user should be created`() {
-        val user = DatabaseUser(
-                id = "random",
-                firstName = "Peter",
-                lastName = "Parker",
-                email = "peterparker@mail.com",
-                password = "thisisasecret",
-                avatarUrl = "randomUrl"
-        )
-        UserDatabase.storeUser(user)
+        val user = UserMother.createPeterParkerUser()
 
         val userRequestWithSameEmail = JSONObject().apply {
-            put("firstName", "Peter2")
-            put("lastName", "Parker2")
-            put("email", "peterparker@mail.com")
-            put("password", "thisisasecret2")
+            put("firstName", "${user.firstName}2")
+            put("lastName", "${user.lastName}2")
+            put("email", user.email)
+            put("password", "RANDOM_PASSWORD")
         }
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
