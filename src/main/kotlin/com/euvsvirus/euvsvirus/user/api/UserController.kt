@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.user.api
 
+import com.euvsvirus.euvsvirus.user.application.AuthorizeUser
 import com.euvsvirus.euvsvirus.user.application.CreateUser
-import com.euvsvirus.euvsvirus.user.application.GetCurrentUser
 import com.euvsvirus.euvsvirus.user.application.GetUser
 import com.euvsvirus.euvsvirus.user.application.LoginUser
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +14,7 @@ class UserController @Autowired constructor(
         val createUser: CreateUser,
         val getUser: GetUser,
         val loginUser: LoginUser,
-        val getCurrentUser: GetCurrentUser
+        val authorizeUser: AuthorizeUser
 ) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
@@ -23,8 +23,7 @@ class UserController @Autowired constructor(
     @GetMapping("/current", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
     fun getCurrentUserEndpoint(@RequestHeader(value="Authorization") authorization: String): GetUserResponse {
-        val token = authorization.removePrefix("Bearer ")
-        return getCurrentUser.invoke(token)
+        return getUser.invoke(authorizeUser.invoke(authorization))
     }
 
     @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
