@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 class WorkoutController {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getWorkoutsEndpoint(): Unit {}
+    fun getWorkoutsEndpoint(): Any {
+        return object {
+            val results = object {}
+        }
+    }
 
 }
