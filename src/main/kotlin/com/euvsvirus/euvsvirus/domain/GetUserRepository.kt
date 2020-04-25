@@ -1,5 +1,5 @@
 package com.euvsvirus.euvsvirus.domain
 
 interface GetUserRepository {
-    fun getUser(userId: String): User
+    fun getUser(userId: String): User?
 }

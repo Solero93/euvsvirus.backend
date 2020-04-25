@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class GetUser(@Autowired val getUserRepository: GetUserRepository) {
     fun invoke(userId: String): GetUserResponse {
-        val user = getUserRepository.getUser(userId)
+        val user = getUserRepository.getUser(userId)!!
         return GetUserResponse(
                 id = user.id,
                 firstName = user.firstName,

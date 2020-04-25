@@ -12,20 +12,15 @@ import java.util.*
 class StoreUserToMemory: StoreUserRepository {
     override fun store(createUserRequest: CreateUserRequest): User {
         val id: String = UUID.randomUUID().toString()
-        UserDatabase.storeUser(DatabaseUser(
+        val databaseUser = DatabaseUser(
                 id = id,
                 firstName = createUserRequest.firstName,
                 lastName = createUserRequest.lastName,
                 email = createUserRequest.email,
                 password = createUserRequest.password,
                 avatarUrl = "randomURL"
-        ))
-        return User(
-                id = id,
-                firstName = createUserRequest.firstName,
-                lastName = createUserRequest.lastName,
-                email = createUserRequest.email,
-                avatarUrl = "randomURL"
         )
+        UserDatabase.storeUser(databaseUser)
+        return databaseUser.toUser()
     }
 }
