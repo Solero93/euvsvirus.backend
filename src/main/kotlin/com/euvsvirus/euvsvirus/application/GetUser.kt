@@ -1,6 +1,6 @@
 package com.euvsvirus.euvsvirus.application
 
-import com.euvsvirus.euvsvirus.api.GetUserResponse
+import com.euvsvirus.euvsvirus.api.user.GetUserResponse
 import com.euvsvirus.euvsvirus.domain.GetUserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

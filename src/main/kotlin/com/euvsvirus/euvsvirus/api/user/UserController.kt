@@ -1,4 +1,4 @@
-package com.euvsvirus.euvsvirus.api
+package com.euvsvirus.euvsvirus.api.user
 
 import com.euvsvirus.euvsvirus.application.CreateUser
 import com.euvsvirus.euvsvirus.application.GetUser

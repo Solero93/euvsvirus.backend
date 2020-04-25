@@ -1,6 +1,6 @@
 package com.euvsvirus.euvsvirus.infrastructure
 
-import com.euvsvirus.euvsvirus.api.CreateUserRequest
+import com.euvsvirus.euvsvirus.api.user.CreateUserRequest
 import com.euvsvirus.euvsvirus.domain.StoreUserRepository
 import com.euvsvirus.euvsvirus.domain.User
 import org.springframework.stereotype.Repository

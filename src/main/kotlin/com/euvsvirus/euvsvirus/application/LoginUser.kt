@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.application
 
-import com.euvsvirus.euvsvirus.api.LoginUserRequest
-import com.euvsvirus.euvsvirus.api.LoginUserResponse
+import com.euvsvirus.euvsvirus.api.user.LoginUserRequest
+import com.euvsvirus.euvsvirus.api.user.LoginUserResponse
 import org.springframework.stereotype.Service
 
 @Service

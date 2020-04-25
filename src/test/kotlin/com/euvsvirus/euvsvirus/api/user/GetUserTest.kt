@@ -1,6 +1,5 @@
-package com.euvsvirus.euvsvirus.api.usercontroller
+package com.euvsvirus.euvsvirus.api.user
 
-import com.euvsvirus.euvsvirus.api.UserController
 import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.Test

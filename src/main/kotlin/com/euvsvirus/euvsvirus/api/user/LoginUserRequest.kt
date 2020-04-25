@@ -1,3 +1,3 @@
-package com.euvsvirus.euvsvirus.api
+package com.euvsvirus.euvsvirus.api.user
 
 data class LoginUserRequest(val email: String, val password: String)

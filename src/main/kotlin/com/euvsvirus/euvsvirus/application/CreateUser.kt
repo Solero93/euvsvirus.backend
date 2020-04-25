@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.application
 
-import com.euvsvirus.euvsvirus.api.CreateUserRequest
-import com.euvsvirus.euvsvirus.api.CreateUserResponse
+import com.euvsvirus.euvsvirus.api.user.CreateUserRequest
+import com.euvsvirus.euvsvirus.api.user.CreateUserResponse
 import com.euvsvirus.euvsvirus.domain.StoreUserRepository
 import com.euvsvirus.euvsvirus.domain.User
 import org.springframework.beans.factory.annotation.Autowired
