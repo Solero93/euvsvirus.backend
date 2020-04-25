@@ -20,13 +20,9 @@ class LoginUser @Autowired constructor(
         val token = obtainTokenRepository.getToken(loginUserRequest)
         val userId = obtainUserIdFromTokenRepository.obtainUserId(token) ?: throw ResponseStatusException(HttpStatus.FORBIDDEN)
         val user = getUserRepository.getUser(userId)!!
-        return LoginUserResponse(
-                token = token,
-                id = user.id,
-                firstName = user.firstName,
-                lastName = user.lastName,
-                email = user.email,
-                avatarUrl = user.avatarUrl
+        return LoginUserResponse.fromUserAndToken(
+                user = user,
+                token = token
         )
     }
 }

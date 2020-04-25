@@ -1,3 +1,5 @@
 package com.euvsvirus.euvsvirus.api.user
 
-data class CreateUserResponse(val id: String, val firstName: String, val lastName: String, val email: String, val avatarUrl: String)
+import com.euvsvirus.euvsvirus.domain.User
+
+typealias CreateUserResponse = User
