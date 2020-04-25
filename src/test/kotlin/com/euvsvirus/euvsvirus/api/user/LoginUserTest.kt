@@ -1,8 +1,10 @@
 package com.euvsvirus.euvsvirus.api.user
 
 import com.euvsvirus.euvsvirus.infrastructure.database.DatabaseUser
+import com.euvsvirus.euvsvirus.infrastructure.database.TokenDatabase
 import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
 import org.json.JSONObject
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -14,6 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
 internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
+    @BeforeEach
+    internal fun setUp() {
+        UserDatabase.clean()
+        TokenDatabase.clean()
+    }
+
     @Test
     fun `When logging in with correct credentials, user information should be returned`() {
         val user = DatabaseUser(

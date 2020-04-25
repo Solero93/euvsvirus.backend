@@ -1,7 +1,10 @@
 package com.euvsvirus.euvsvirus.api.user
 
+import com.euvsvirus.euvsvirus.infrastructure.database.TokenDatabase
+import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
 import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -13,6 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
 internal class CreateUserTest(@Autowired val mockMvc: MockMvc) {
+    @BeforeEach
+    internal fun setUp() {
+        UserDatabase.clean()
+        TokenDatabase.clean()
+    }
+
     @Test
     fun `when creating a user, the same user should be returned`() {
         val userRequest = JSONObject().apply {
