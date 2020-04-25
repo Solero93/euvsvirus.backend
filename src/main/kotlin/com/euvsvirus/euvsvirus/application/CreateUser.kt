@@ -2,9 +2,9 @@ package com.euvsvirus.euvsvirus.application
 
 import com.euvsvirus.euvsvirus.api.CreateUserRequest
 import com.euvsvirus.euvsvirus.api.CreateUserResponse
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
+@Service
 class CreateUser {
     fun invoke(createUserRequest: CreateUserRequest): CreateUserResponse {
         with(createUserRequest) {

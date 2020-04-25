@@ -1,9 +1,9 @@
 package com.euvsvirus.euvsvirus.application
 
 import com.euvsvirus.euvsvirus.api.GetUserResponse
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
+@Service
 class GetUser {
     fun invoke(userId: String): GetUserResponse {
         return GetUserResponse(

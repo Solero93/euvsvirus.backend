@@ -2,9 +2,9 @@ package com.euvsvirus.euvsvirus.application
 
 import com.euvsvirus.euvsvirus.api.LoginUserRequest
 import com.euvsvirus.euvsvirus.api.LoginUserResponse
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
-@Component
+@Service
 class LoginUser {
     fun invoke(loginUserRequest: LoginUserRequest): LoginUserResponse {
         return LoginUserResponse(
