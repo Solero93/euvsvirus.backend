@@ -13,14 +13,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
-internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
+internal class GetCurrentUser(@Autowired val mockMvc: MockMvc) {
     @BeforeEach
     internal fun setUp() {
         DatabaseCleaner.clean()
     }
 
     @Test
-    fun `After creating a user, when getting the user from the system, the same user should be returned`() {
+    fun `Get current User should give information of the logged in user`() {
         val userRequest = JSONObject().apply {
             put("firstName", "Peter")
             put("lastName", "Parker")
@@ -28,22 +28,34 @@ internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
             put("password", "thisisasecret")
         }
 
-        val response = mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
+        val createUserResponse = JSONObject(mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(userRequest.toString()))
-                .andReturn().response.contentAsString
-        val jsonResponse = JSONObject(response)
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${jsonResponse.get("id")}")
-                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("id", `is`(jsonResponse.get("id"))))
+                .andReturn().response.contentAsString)
+
+        val loginRequest = JSONObject().apply {
+            put("email", userRequest.get("email"))
+            put("password", userRequest.get("password"))
+        }
+
+        val tokenJson = JSONObject(mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(loginRequest.toString()))
+                .andReturn().response.contentAsString)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer ${tokenJson.get("token")}"))
+                .andExpect(status().isOk)
+                .andExpect(jsonPath("id", `is`(createUserResponse.get("id"))))
                 .andExpect(jsonPath("firstName", `is`(userRequest.get("firstName"))))
                 .andExpect(jsonPath("lastName", `is`(userRequest.get("lastName"))))
                 .andExpect(jsonPath("email", `is`(userRequest.get("email"))))
                 .andExpect(jsonPath("password").doesNotExist())
-                .andExpect(jsonPath("avatarUrl").isString)
+                .andExpect(jsonPath("avatarUrl", `is`(createUserResponse.get("avatarUrl"))))
                 .andExpect(jsonPath("token").doesNotExist())
     }
 }
