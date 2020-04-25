@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(path = ["/api/user"])
 class UserController @Autowired constructor(
-        val createUser: CreateUser,
-        val getUser: GetUser,
-        val loginUser: LoginUser,
-        val authorizeUser: AuthorizeUser
+        private val createUser: CreateUser,
+        private val getUser: GetUser,
+        private val loginUser: LoginUser,
+        private val authorizeUser: AuthorizeUser
 ) {
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
