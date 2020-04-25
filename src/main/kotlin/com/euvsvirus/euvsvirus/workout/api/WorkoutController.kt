@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RestController
 class WorkoutController @Autowired constructor(val getWorkouts: GetWorkouts){
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getWorkoutsEndpoint(): WorkoutResponse = getWorkouts.invoke()
+    fun getWorkoutsEndpoint(): GetWorkoutsResponse = getWorkouts.invoke()
 }
