@@ -2,9 +2,9 @@ package com.euvsvirus.euvsvirus.infrastructure
 
 import com.euvsvirus.euvsvirus.api.user.LoginUserRequest
 import com.euvsvirus.euvsvirus.domain.ObtainTokenRepository
-import com.euvsvirus.euvsvirus.infrastructure.database.DatabaseUser
-import com.euvsvirus.euvsvirus.infrastructure.database.TokenDatabase
-import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.DatabaseUser
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.TokenDatabase
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.UserDatabase
 import org.springframework.stereotype.Repository
 
 @Repository

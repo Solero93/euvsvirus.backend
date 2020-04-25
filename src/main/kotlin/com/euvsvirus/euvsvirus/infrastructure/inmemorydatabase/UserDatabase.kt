@@ -1,4 +1,4 @@
-package com.euvsvirus.euvsvirus.infrastructure.database
+package com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase
 
 object UserDatabase {
     var users = mutableListOf<DatabaseUser>()

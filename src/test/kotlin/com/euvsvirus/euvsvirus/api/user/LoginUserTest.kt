@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.api.user
 
-import com.euvsvirus.euvsvirus.infrastructure.database.DatabaseUser
-import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.DatabaseUser
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.UserDatabase
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -1,7 +1,7 @@
 package com.euvsvirus.euvsvirus.api.user
 
-import com.euvsvirus.euvsvirus.infrastructure.database.TokenDatabase
-import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.TokenDatabase
+import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.UserDatabase
 
 object DatabaseCleaner {
     fun clean() {
