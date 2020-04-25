@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @WebMvcTest(controllers = [UserController::class])
-internal class GetCurrentUser(@Autowired val mockMvc: MockMvc) {
+internal class GetCurrentUserTest(@Autowired val mockMvc: MockMvc) {
     @BeforeEach
     internal fun setUp() {
         DatabaseCleaner.clean()
