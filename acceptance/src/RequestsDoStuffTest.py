@@ -9,14 +9,20 @@ class RequestsDoStuff(unittest.TestCase):
     def test_head_request_to_get_user(self):
         self.assertEqual(requests.head(BASE_URL + "/api/user/1").status_code, 200)
 
-    def test_option_request_to_get_user(self):
+    def test_options_request_to_get_user(self):
         self.assertEqual(requests.options(BASE_URL + "/api/user/1").status_code, 200)
 
-    def test_option_request_to_create_user(self):
+    def test_options_request_to_create_user(self):
         self.assertEqual(requests.options(BASE_URL + "/api/user").status_code, 200)
 
-    def test_option_request_to_login_user(self):
+    def test_options_request_to_login_user(self):
         self.assertEqual(requests.options(BASE_URL + "/api/user/login").status_code, 200)
+
+    def test_head_request_to_get_current_user(self):
+        self.assertEqual(requests.head(BASE_URL + "/api/user/current").status_code, 200)
+
+    def test_options_request_to_get_current_user(self):
+        self.assertEqual(requests.options(BASE_URL + "/api/user/current").status_code, 200)
 
 
 if __name__ == '__main__':
