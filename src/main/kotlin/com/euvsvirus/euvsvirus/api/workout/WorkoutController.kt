@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RestController
 class WorkoutController {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getWorkoutsEndpoint(): Any {
-        return object {
-            val results = listOf(
-                    Workout("RANDOM_ID", "RANDOM_SPORT", listOf(listOf(0.1f, 0.2f, 0.4f)))
-            )
-        }
+    fun getWorkoutsEndpoint(): WorkoutResponse {
+        return WorkoutResponse(
+                results = listOf(
+                        Workout("RANDOM_ID", "RANDOM_SPORT", listOf(listOf(0.1f, 0.2f, 0.4f)))
+                )
+        )
     }
 
 }
