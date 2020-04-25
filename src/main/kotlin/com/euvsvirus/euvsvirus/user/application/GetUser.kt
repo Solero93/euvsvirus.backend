@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class GetUser(@Autowired val getUserRepository: GetUserRepository) {
+class GetUser(@Autowired private val getUserRepository: GetUserRepository) {
     fun invoke(userId: String): GetUserResponse {
         val user = getUserRepository.getUser(userId)!!
         return GetUserResponse(

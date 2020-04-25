@@ -12,8 +12,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class CreateUser @Autowired constructor(
-        val storeUserRepository: StoreUserRepository,
-        val isThereUserWithSameEmailFromMemory: IsThereUserWithSameEmailFromMemory
+        private val storeUserRepository: StoreUserRepository,
+        private val isThereUserWithSameEmailFromMemory: IsThereUserWithSameEmailFromMemory
 ) {
     fun invoke(createUserRequest: CreateUserRequest): CreateUserResponse {
         if (isThereUserWithSameEmailFromMemory.isThereUserWithSameEmail(createUserRequest.email)) {

@@ -12,9 +12,9 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class LoginUser @Autowired constructor(
-        val obtainTokenRepository: ObtainTokenRepository,
-        val obtainUserIdFromTokenRepository: ObtainUserIdFromTokenRepository,
-        val getUserRepository: GetUserRepository
+        private val obtainTokenRepository: ObtainTokenRepository,
+        private val obtainUserIdFromTokenRepository: ObtainUserIdFromTokenRepository,
+        private val getUserRepository: GetUserRepository
 ) {
     fun invoke(loginUserRequest: LoginUserRequest): LoginUserResponse {
         val token = obtainTokenRepository.getToken(loginUserRequest)

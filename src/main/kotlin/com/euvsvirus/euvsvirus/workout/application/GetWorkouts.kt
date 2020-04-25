@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class GetWorkouts @Autowired constructor(val getWorkoutsRepository: GetWorkoutsRepository) {
+class GetWorkouts @Autowired constructor(private val getWorkoutsRepository: GetWorkoutsRepository) {
     fun invoke(): GetWorkoutsResponse {
         return GetWorkoutsResponse(
                 results = getWorkoutsRepository.getWorkouts()

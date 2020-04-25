@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
-class AuthorizeUser(@Autowired val obtainUserIdFromTokenRepository: ObtainUserIdFromTokenRepository) {
+class AuthorizeUser(@Autowired private val obtainUserIdFromTokenRepository: ObtainUserIdFromTokenRepository) {
     fun invoke(authorization: String): String {
         val token = authorization.removePrefix("Bearer ")
         return obtainUserIdFromTokenRepository.obtainUserId(token)
