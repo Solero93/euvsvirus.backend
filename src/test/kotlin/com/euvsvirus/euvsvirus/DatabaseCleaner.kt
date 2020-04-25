@@ -1,4 +1,4 @@
-package com.euvsvirus.euvsvirus.user.api
+package com.euvsvirus.euvsvirus
 
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.TokenDatabase
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.UserDatabase

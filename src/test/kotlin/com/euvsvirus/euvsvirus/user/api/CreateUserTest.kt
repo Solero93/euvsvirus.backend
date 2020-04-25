@@ -1,5 +1,6 @@
 package com.euvsvirus.euvsvirus.user.api
 
+import com.euvsvirus.euvsvirus.DatabaseCleaner
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.DatabaseUser
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.UserDatabase
 import org.assertj.core.api.Assertions.assertThat

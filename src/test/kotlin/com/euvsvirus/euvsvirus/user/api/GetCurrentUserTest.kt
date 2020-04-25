@@ -1,5 +1,6 @@
 package com.euvsvirus.euvsvirus.user.api
 
+import com.euvsvirus.euvsvirus.DatabaseCleaner
 import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach

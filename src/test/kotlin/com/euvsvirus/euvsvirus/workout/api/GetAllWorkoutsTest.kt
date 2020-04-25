@@ -1,6 +1,6 @@
 package com.euvsvirus.euvsvirus.workout.api
 
-import com.euvsvirus.euvsvirus.user.api.DatabaseCleaner
+import com.euvsvirus.euvsvirus.DatabaseCleaner
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.DatabaseUser
 import com.euvsvirus.euvsvirus.user.infrastructure.inmemorydatabase.UserDatabase
 import org.hamcrest.Matchers.hasSize
