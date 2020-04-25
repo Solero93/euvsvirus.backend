@@ -6,7 +6,7 @@ import com.euvsvirus.euvsvirus.domain.User
 import org.springframework.stereotype.Repository
 
 @Repository
-class StoreUserDoNothing: StoreUserRepository {
+class StoreUserDoNothing : StoreUserRepository {
     override fun store(createUserRequest: CreateUserRequest): User {
         return User(
                 id = "randomId",
