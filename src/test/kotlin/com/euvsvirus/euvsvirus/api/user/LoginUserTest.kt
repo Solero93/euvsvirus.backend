@@ -2,6 +2,7 @@ package com.euvsvirus.euvsvirus.api.user
 
 import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.DatabaseUser
 import com.euvsvirus.euvsvirus.infrastructure.inmemorydatabase.UserDatabase
+import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -42,6 +43,13 @@ internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(loginRequest.toString()))
                 .andExpect(status().isOk)
+
+                .andExpect(jsonPath("id", `is`(user.id)))
+                .andExpect(jsonPath("firstName", `is`(user.firstName)))
+                .andExpect(jsonPath("lastName", `is`(user.lastName)))
+                .andExpect(jsonPath("email", `is`(user.email)))
+                .andExpect(jsonPath("avatarUrl", `is`(user.avatarUrl)))
+                .andExpect(jsonPath("password").doesNotExist())
                 .andExpect(jsonPath("token").isString)
     }
 }
