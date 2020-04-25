@@ -22,7 +22,7 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    fun `When obtaining all the workouts, a list of workouts should be returned`() {
+    fun `When creating a workout, the created workout should be returned`() {
         val workoutRequest = JSONObject().apply {
             put("datetimeStart", "2007-11-03T16:18:05Z")
             put("datetimeEnd", "2007-11-03T18:18:05Z")
