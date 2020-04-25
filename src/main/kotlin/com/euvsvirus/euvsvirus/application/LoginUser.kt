@@ -11,12 +11,7 @@ class LoginUser (@Autowired val obtainTokenRepository: ObtainTokenRepository) {
     fun invoke(loginUserRequest: LoginUserRequest): LoginUserResponse {
         val token = obtainTokenRepository.getToken(loginUserRequest);
         return LoginUserResponse(
-                id = "randomId",
-                firstName = "Peter",
-                lastName = "Parker",
-                email = loginUserRequest.email,
-                token = token,
-                avatarUrl = "randomUrl"
+                token = token
         )
     }
 }

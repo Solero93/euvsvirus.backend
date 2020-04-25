@@ -1,6 +1,5 @@
 package com.euvsvirus.euvsvirus.api.user
 
-import org.hamcrest.Matchers.`is`
 import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,12 +24,6 @@ internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(loginRequest.toString()))
                 .andExpect(status().isOk)
-                .andExpect(jsonPath("id").isString)
-                .andExpect(jsonPath("firstName").isString)
-                .andExpect(jsonPath("lastName").isString)
-                .andExpect(jsonPath("email", `is`(loginRequest.get("email"))))
-                .andExpect(jsonPath("password").doesNotExist())
-                .andExpect(jsonPath("avatarUrl").isString)
                 .andExpect(jsonPath("token").isString)
     }
 }
