@@ -1,5 +1,7 @@
 package com.euvsvirus.euvsvirus.api.user
 
+import com.euvsvirus.euvsvirus.infrastructure.database.DatabaseUser
+import com.euvsvirus.euvsvirus.infrastructure.database.UserDatabase
 import org.json.JSONObject
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,9 +16,19 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 internal class LoginUserTest(@Autowired val mockMvc: MockMvc) {
     @Test
     fun `When logging in with correct credentials, user information should be returned`() {
+        val user = DatabaseUser(
+                id = "random",
+                firstName = "Peter",
+                lastName = "Parker",
+                email = "peterparker@mail.com",
+                password = "thisisasecret",
+                avatarUrl = "randomUrl"
+        )
+        UserDatabase.storeUser(user)
+
         val loginRequest = JSONObject().apply {
-            put("email", "peterparker@mail.com")
-            put("password", "thisisasecret")
+            put("email", user.email)
+            put("password", user.password)
         }
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
