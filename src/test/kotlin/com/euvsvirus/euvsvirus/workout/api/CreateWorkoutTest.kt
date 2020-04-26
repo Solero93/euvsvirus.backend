@@ -65,7 +65,7 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
             put("datetimeStart", "2007-11-03T16:18:05Z")
             put("datetimeEnd", "2007-11-03T18:18:05Z")
             put("sport", "RANDOM_SPORT")
-            put("points", JSONArray(listOf(listOf(0.4f, 0.5f, 100f))))
+            put("points", JSONArray(listOf(listOf(0.4, 0.5, 100))))
         }
 
         mockMvc.perform(post("/api/workout")

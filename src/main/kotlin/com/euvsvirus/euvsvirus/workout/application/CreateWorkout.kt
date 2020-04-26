@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class CreateWorkout (@Autowired private val createWorkoutRepository: CreateWorkoutRepository){
-    fun invoke(createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
-        return CreateWorkoutResponse.fromWorkout(createWorkoutRepository.createWorkout(createWorkoutRequest))
+    fun invoke(createWorkoutRequest: CreateWorkoutRequest, userId: String): CreateWorkoutResponse {
+        return CreateWorkoutResponse.fromWorkout(createWorkoutRepository.createWorkout(createWorkoutRequest, userId))
     }
 }

@@ -7,7 +7,7 @@ data class PointWithIntensity(val point: SpherePoint, val intensity: Double) {
         assert(BigDecimal(0) <= BigDecimal(intensity) && BigDecimal(intensity) <= BigDecimal(100))
     }
 
-    fun toBigDoubleList(): List<Double> {
+    fun toDoubleList(): List<Double> {
         return listOf(point.latitude, point.longitude, intensity)
     }
 

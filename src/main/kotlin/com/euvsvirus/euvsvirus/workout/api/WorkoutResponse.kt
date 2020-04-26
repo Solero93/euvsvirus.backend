@@ -9,7 +9,7 @@ data class WorkoutResponse(val id: String, val userId: String, val sport: String
                     id = workout.id,
                     userId = workout.userId,
                     sport = workout.sport,
-                    raster = workout.raster.map { it.toBigDoubleList() }
+                    raster = workout.raster.map { it.toDoubleList() }
             )
         }
     }

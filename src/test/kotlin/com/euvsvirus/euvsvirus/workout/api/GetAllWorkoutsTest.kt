@@ -3,6 +3,7 @@ package com.euvsvirus.euvsvirus.workout.api
 import com.euvsvirus.euvsvirus.DatabaseCleaner
 import com.euvsvirus.euvsvirus.TokenMother
 import com.euvsvirus.euvsvirus.UserMother
+import com.euvsvirus.euvsvirus.WorkoutMother
 import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -25,6 +26,7 @@ class GetAllWorkoutsTest(@Autowired val mockMvc: MockMvc) {
     fun `When obtaining all the workouts, a list of workouts should be returned`() {
         val user = UserMother.createPeterParkerUser()
         val token = TokenMother.getTokenForUser(user)
+        val workout = WorkoutMother.createDummyWorkout(user.id)
 
         mockMvc.perform(get("/api/workout")
                 .contentType(MediaType.APPLICATION_JSON)

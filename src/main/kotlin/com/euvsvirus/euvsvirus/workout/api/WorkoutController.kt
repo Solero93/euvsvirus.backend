@@ -23,7 +23,7 @@ class WorkoutController @Autowired constructor(
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
     fun createWorkoutEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String, @RequestBody createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
-        authorizeUser.invoke(authorization)
-        return createWorkout.invoke(createWorkoutRequest)
+        val userId = authorizeUser.invoke(authorization)
+        return createWorkout.invoke(createWorkoutRequest, userId)
     }
 }

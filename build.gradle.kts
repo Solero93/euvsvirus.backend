@@ -26,9 +26,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.github.seratch:kotliquery:1.3.0")
     runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+    implementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
+    } // TODO Should be testImplementation, but need JSONArray
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 

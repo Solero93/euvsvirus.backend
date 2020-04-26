@@ -5,20 +5,24 @@ import com.euvsvirus.euvsvirus.workout.domain.CreateWorkoutRepository
 import com.euvsvirus.euvsvirus.workout.domain.PointWithIntensity
 import com.euvsvirus.euvsvirus.workout.domain.SphereCircle
 import com.euvsvirus.euvsvirus.workout.domain.Workout
+import com.euvsvirus.euvsvirus.workout.infrastructure.database.WorkoutDatabase
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
-class CreateWorkoutDoesNothing: CreateWorkoutRepository {
-    override fun createWorkout(createWorkoutRequest: CreateWorkoutRequest): Workout {
-        return Workout(
-                id = "RANDOM_ID",
-                userId = "RANDOM_USER_ID",
+class CreateWorkoutPostgres: CreateWorkoutRepository {
+    override fun createWorkout(createWorkoutRequest: CreateWorkoutRequest, userId: String): Workout {
+        val workoutId = UUID.randomUUID().toString()
+        val workout = Workout(
+                id = workoutId,
+                userId = userId,
                 datetimeStart = createWorkoutRequest.datetimeStart,
                 datetimeEnd = createWorkoutRequest.datetimeEnd,
                 sport = createWorkoutRequest.sport,
                 points = createWorkoutRequest.points.map { SphereCircle.fromNumbers(it[0], it[1], it[2]) },
-                raster = listOf(PointWithIntensity.fromNumbers(0.1, 0.2, 0.4))
+                raster = createWorkoutRequest.points.map { PointWithIntensity.fromNumbers(it[0], it[1], 1.0) }
         )
+        WorkoutDatabase.createWorkout(workout)
+        return workout
     }
-
 }

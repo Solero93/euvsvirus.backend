@@ -19,7 +19,7 @@ data class CreateWorkoutResponse(
                     datetimeStart = workout.datetimeStart,
                     datetimeEnd = workout.datetimeEnd,
                     sport = workout.sport,
-                    raster = workout.raster.map { it.toBigDoubleList() }
+                    raster = workout.raster.map { it.toDoubleList() }
             )
         }
     }

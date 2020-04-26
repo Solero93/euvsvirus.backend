@@ -29,3 +29,22 @@ create table "Token"
 alter table "Token"
     owner to euvsvirus;
 
+
+create table "Workout"
+(
+    id varchar
+        constraint workout_pk
+            primary key,
+    userid varchar not null
+        constraint workout_appuser_id_fk
+            references "AppUser"
+            on update cascade on delete cascade,
+    datetimestart timestamptz not null,
+    datetimeend timestamptz not null,
+    sport varchar not null,
+    points varchar[] not null,
+    raster varchar[] not null
+);
+
+create index workout_userid_index
+    on "Workout" (userid);
