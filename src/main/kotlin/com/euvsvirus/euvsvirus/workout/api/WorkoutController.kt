@@ -16,8 +16,7 @@ class WorkoutController @Autowired constructor(
 ) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getWorkoutsEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String): GetWorkoutsResponse {
-        authorizeUser.invoke(authorization)
+    fun getWorkoutsEndpoint(): GetWorkoutsResponse {
         return getWorkouts.invoke()
     }
 
