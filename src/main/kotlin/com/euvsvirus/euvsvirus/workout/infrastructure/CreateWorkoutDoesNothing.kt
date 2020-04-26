@@ -4,6 +4,7 @@ import com.euvsvirus.euvsvirus.workout.api.CreateWorkoutRequest
 import com.euvsvirus.euvsvirus.workout.api.CreateWorkoutResponse
 import com.euvsvirus.euvsvirus.workout.domain.CreateWorkoutRepository
 import org.springframework.stereotype.Repository
+import java.math.BigDecimal
 
 @Repository
 class CreateWorkoutDoesNothing: CreateWorkoutRepository {
@@ -14,7 +15,7 @@ class CreateWorkoutDoesNothing: CreateWorkoutRepository {
                 datetimeStart = createWorkoutRequest.datetimeStart,
                 datetimeEnd = createWorkoutRequest.datetimeEnd,
                 sport = createWorkoutRequest.sport,
-                raster = listOf(listOf(0.1, 0.2, 0.4))
+                raster = listOf(listOf(BigDecimal(0.1), BigDecimal(0.2), BigDecimal(0.4)))
         )
     }
 
