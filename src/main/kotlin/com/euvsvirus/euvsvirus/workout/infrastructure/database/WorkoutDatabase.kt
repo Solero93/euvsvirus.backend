@@ -1,6 +1,7 @@
 package com.euvsvirus.euvsvirus.workout.infrastructure.database
 
 import com.euvsvirus.euvsvirus.common.postgres.DatabaseSession.getSession
+import com.euvsvirus.euvsvirus.workout.api.GetWorkoutsRequest
 import com.euvsvirus.euvsvirus.workout.domain.PointWithIntensity
 import com.euvsvirus.euvsvirus.workout.domain.SphereCircle
 import com.euvsvirus.euvsvirus.workout.domain.Workout
@@ -28,26 +29,33 @@ object WorkoutDatabase {
         }
     }
 
-    fun getWorkouts(): List<Workout> {
+    fun getWorkouts(getWorkoutsRequest: GetWorkoutsRequest): List<Workout> {
+        val query = if (getWorkoutsRequest.datetime == null) {
+            queryOf("SELECT * FROM public.\"Workout\"")
+        } else {
+            queryOf("""
+                SELECT * FROM public."Workout"
+                WHERE ? BETWEEN datetimestart AND datetimeend
+            """.trimIndent(), getWorkoutsRequest.datetime)
+        }
         return getSession().use {
-            it.run(queryOf("SELECT * FROM public.\"Workout\"")
-                    .map {
-                        Workout(
-                                id = it.string("id"),
-                                userId = it.string("userid"),
-                                datetimeStart = it.zonedDateTime("datetimestart"),
-                                datetimeEnd = it.zonedDateTime("datetimeend"),
-                                sport = it.string("sport"),
-                                raster = it.array<String>("raster").map { strings ->
-                                    val array = JSONArray(strings)
-                                    PointWithIntensity.fromNumbers(array.getDouble(0), array.getDouble(1), array.getDouble(2))
-                                },
-                                points = it.array<String>("points").map { strings ->
-                                    val array = JSONArray(strings)
-                                    SphereCircle.fromNumbers(array.getDouble(0), array.getDouble(1), array.getDouble(2))
-                                }
-                        )
-                    }.asList)
+            it.run(query.map {
+                Workout(
+                        id = it.string("id"),
+                        userId = it.string("userid"),
+                        datetimeStart = it.zonedDateTime("datetimestart"),
+                        datetimeEnd = it.zonedDateTime("datetimeend"),
+                        sport = it.string("sport"),
+                        raster = it.array<String>("raster").map { strings ->
+                            val array = JSONArray(strings)
+                            PointWithIntensity.fromNumbers(array.getDouble(0), array.getDouble(1), array.getDouble(2))
+                        },
+                        points = it.array<String>("points").map { strings ->
+                            val array = JSONArray(strings)
+                            SphereCircle.fromNumbers(array.getDouble(0), array.getDouble(1), array.getDouble(2))
+                        }
+                )
+            }.asList)
         }
     }
 }
