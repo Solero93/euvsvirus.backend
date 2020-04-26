@@ -21,6 +21,25 @@ internal class GetUserTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
+    fun `No token, no fun`() {
+        val user = UserMother.createPeterParkerUser()
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${user.id}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
+    fun `Wrong token, no fun`() {
+        val user = UserMother.createPeterParkerUser()
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/${user.id}")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer WRONG_TOKEN"))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
     fun `After creating a user, when getting the user from the system, the same user should be returned`() {
         val user = UserMother.createPeterParkerUser()
         val token = TokenMother.getTokenForUser(user)

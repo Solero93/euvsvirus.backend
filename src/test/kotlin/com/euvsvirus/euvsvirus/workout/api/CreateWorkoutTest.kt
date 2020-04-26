@@ -24,6 +24,39 @@ class CreateWorkoutTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
+    fun `No token, no fun`() {
+        val workoutRequest = JSONObject().apply {
+            put("datetimeStart", "2007-11-03T16:18:05Z")
+            put("datetimeEnd", "2007-11-03T18:18:05Z")
+            put("sport", "RANDOM_SPORT")
+            put("points", JSONArray(listOf(listOf(0.4f, 0.5f, 100f))))
+        }
+
+        mockMvc.perform(post("/api/workout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(workoutRequest.toString()))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
+    fun `Wrong token, no fun`() {
+        val workoutRequest = JSONObject().apply {
+            put("datetimeStart", "2007-11-03T16:18:05Z")
+            put("datetimeEnd", "2007-11-03T18:18:05Z")
+            put("sport", "RANDOM_SPORT")
+            put("points", JSONArray(listOf(listOf(0.4f, 0.5f, 100f))))
+        }
+
+        mockMvc.perform(post("/api/workout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer WRONG_TOKEN")
+                .content(workoutRequest.toString()))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
     fun `When creating a workout, the created workout should be returned`() {
         val user = UserMother.createPeterParkerUser()
         val token = TokenMother.getTokenForUser(user)

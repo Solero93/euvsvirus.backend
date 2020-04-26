@@ -67,4 +67,11 @@ internal class GetCurrentUserTest(@Autowired val mockMvc: MockMvc) {
                 .header("Authorization", "Bearer RANDOM_TOKEN"))
                 .andExpect(status().isForbidden)
     }
+
+    @Test
+    fun `Get current User with no token should return 403`() {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden)
+    }
 }

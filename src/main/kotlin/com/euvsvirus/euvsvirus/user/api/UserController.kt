@@ -22,13 +22,13 @@ class UserController @Autowired constructor(
 
     @GetMapping("/current", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getCurrentUserEndpoint(@RequestHeader(value = "Authorization") authorization: String): GetUserResponse {
+    fun getCurrentUserEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String): GetUserResponse {
         return getUser.invoke(authorizeUser.invoke(authorization))
     }
 
     @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getUserEndpoint(@RequestHeader(value = "Authorization") authorization: String, @PathVariable("id") userId: String): GetUserResponse {
+    fun getUserEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String, @PathVariable("id") userId: String): GetUserResponse {
         authorizeUser.invoke(authorization)
         return getUser.invoke(userId)
     }

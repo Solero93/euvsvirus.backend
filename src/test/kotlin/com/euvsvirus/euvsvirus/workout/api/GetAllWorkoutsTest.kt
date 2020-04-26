@@ -22,6 +22,23 @@ class GetAllWorkoutsTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
+    fun `No token, no fun`() {
+        mockMvc.perform(get("/api/workout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
+    fun `Wrong token, no fun`() {
+        mockMvc.perform(get("/api/workout")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer WRONG_TOKEN")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden)
+    }
+
+    @Test
     fun `When obtaining all the workouts, a list of workouts should be returned`() {
         val user = UserMother.createPeterParkerUser()
         val token = TokenMother.getTokenForUser(user)

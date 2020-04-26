@@ -16,14 +16,14 @@ class WorkoutController @Autowired constructor(
 ) {
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun getWorkoutsEndpoint(@RequestHeader(value = "Authorization") authorization: String): GetWorkoutsResponse {
+    fun getWorkoutsEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String): GetWorkoutsResponse {
         authorizeUser.invoke(authorization)
         return getWorkouts.invoke()
     }
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseBody
-    fun createWorkoutEndpoint(@RequestHeader(value = "Authorization") authorization: String, @RequestBody createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
+    fun createWorkoutEndpoint(@RequestHeader(value = "Authorization", defaultValue = "Bearer -") authorization: String, @RequestBody createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
         authorizeUser.invoke(authorization)
         return createWorkout.invoke(createWorkoutRequest)
     }
