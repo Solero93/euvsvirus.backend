@@ -4,7 +4,7 @@ import kotliquery.queryOf
 import org.intellij.lang.annotations.Language
 
 object CreateTables {
-    fun create() {
+    fun createTables() {
         createUserTable()
         createTokenTable()
     }
@@ -15,19 +15,19 @@ object CreateTables {
         @Language("SQL")
         val statement = """
             -- auto-generated definition
-            create table "User"
+            create table "AppUser"
             (
-                id          varchar not null
+                id        varchar not null
                     constraint user_pk
                         primary key,
-                "firstName" varchar not null,
-                "lastName"  varchar not null,
-                email       varchar not null,
-                password    varchar not null,
-                "avatarUrl" varchar not null
+                firstname varchar not null,
+                lastname  varchar not null,
+                email     varchar not null,
+                password  varchar not null,
+                avatarurl varchar not null
             );
-
-            alter table AppUser
+            
+            alter table "AppUser"
                 owner to euvsvirus;
         """.trimIndent()
         session.execute(queryOf(statement))
@@ -41,11 +41,11 @@ object CreateTables {
             -- auto-generated definition
             create table "Token"
             (
-                "userId" varchar not null
+                userid varchar not null
                     constraint token_pk
                         primary key
                     constraint token_user_id_fk
-                        references AppUser
+                        references "AppUser"
                         on update cascade on delete cascade,
                 token    varchar not null
             );

@@ -3,7 +3,7 @@ ARG APP_HOME=/usr/app/
 WORKDIR ${APP_HOME}
 COPY build.gradle.kts settings.gradle.kts ${APP_HOME}
 COPY src/ ${APP_HOME}/src
-RUN gradle clean build
+RUN gradle clean build -x test
 WORKDIR ${APP_HOME}/build/libs
 RUN jar -xf *.jar
 
