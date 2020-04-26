@@ -1,7 +1,6 @@
 package com.euvsvirus.euvsvirus.workout.api
 
 import com.euvsvirus.euvsvirus.workout.domain.Workout
-import java.math.BigDecimal
 import java.time.ZonedDateTime
 
 data class CreateWorkoutResponse(
@@ -10,7 +9,7 @@ data class CreateWorkoutResponse(
         val datetimeStart: ZonedDateTime,
         val datetimeEnd: ZonedDateTime,
         val sport: String,
-        val raster: List<List<BigDecimal>>
+        val raster: List<List<Double>>
 ) {
     companion object {
         fun fromWorkout(workout: Workout): CreateWorkoutResponse {
@@ -20,7 +19,7 @@ data class CreateWorkoutResponse(
                     datetimeStart = workout.datetimeStart,
                     datetimeEnd = workout.datetimeEnd,
                     sport = workout.sport,
-                    raster = workout.raster.map { it.toBigDecimalList() }
+                    raster = workout.raster.map { it.toBigDoubleList() }
             )
         }
     }

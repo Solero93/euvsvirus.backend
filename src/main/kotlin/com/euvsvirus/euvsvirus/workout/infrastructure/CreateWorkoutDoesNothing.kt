@@ -16,7 +16,7 @@ class CreateWorkoutDoesNothing: CreateWorkoutRepository {
                 datetimeStart = createWorkoutRequest.datetimeStart,
                 datetimeEnd = createWorkoutRequest.datetimeEnd,
                 sport = createWorkoutRequest.sport,
-                points = createWorkoutRequest.points.map { SphereCircle(it[0], it[1], it[2]) },
+                points = createWorkoutRequest.points.map { SphereCircle.fromNumbers(it[0], it[1], it[2]) },
                 raster = listOf(PointWithIntensity.fromNumbers(0.1, 0.2, 0.4))
         )
     }
