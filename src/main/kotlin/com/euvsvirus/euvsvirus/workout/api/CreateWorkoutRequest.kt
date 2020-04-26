@@ -6,5 +6,5 @@ data class CreateWorkoutRequest(
         val datetimeStart: ZonedDateTime,
         val datetimeEnd: ZonedDateTime,
         val sport: String,
-        val points: List<List<Float>>
+        val points: List<List<Double>>
 )

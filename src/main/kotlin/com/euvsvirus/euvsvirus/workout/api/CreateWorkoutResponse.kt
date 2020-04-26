@@ -8,5 +8,5 @@ data class CreateWorkoutResponse(
         val datetimeStart: ZonedDateTime,
         val datetimeEnd: ZonedDateTime,
         val sport: String,
-        val raster: List<List<Float>>
+        val raster: List<List<Double>>
 )

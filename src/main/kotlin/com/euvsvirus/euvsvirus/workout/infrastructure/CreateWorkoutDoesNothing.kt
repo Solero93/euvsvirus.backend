@@ -14,7 +14,7 @@ class CreateWorkoutDoesNothing: CreateWorkoutRepository {
                 datetimeStart = createWorkoutRequest.datetimeStart,
                 datetimeEnd = createWorkoutRequest.datetimeEnd,
                 sport = createWorkoutRequest.sport,
-                raster = listOf(listOf(0.1f, 0.2f, 0.4f))
+                raster = listOf(listOf(0.1, 0.2, 0.4))
         )
     }
 
