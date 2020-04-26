@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service
 @Service
 class CreateWorkout (@Autowired private val createWorkoutRepository: CreateWorkoutRepository){
     fun invoke(createWorkoutRequest: CreateWorkoutRequest): CreateWorkoutResponse {
-        return createWorkoutRepository.createWorkout(createWorkoutRequest)
+        return CreateWorkoutResponse.fromWorkout(createWorkoutRepository.createWorkout(createWorkoutRequest))
     }
 }
