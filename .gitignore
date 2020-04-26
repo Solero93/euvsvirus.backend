@@ -1,3 +1,5 @@
+database-data/ # Volume for database files
+
 HELP.md
 .gradle
 build/
