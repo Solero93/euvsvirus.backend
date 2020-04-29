@@ -12,7 +12,7 @@ class GetWorkouts @Autowired constructor(private val getWorkoutsRepository: GetW
     fun invoke(getWorkoutsRequest: GetWorkoutsRequest): GetWorkoutsResponse {
         return GetWorkoutsResponse(
                 results = getWorkoutsRepository.getWorkouts(getWorkoutsRequest)
-                        .map { WorkoutResponse.fromWorkout(it) }
+                        .map { WorkoutResponse.fromRasteredWorkout(it) }
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.euvsvirus.euvsvirus.workout.api
 
-import com.euvsvirus.euvsvirus.workout.domain.Workout
+import com.euvsvirus.euvsvirus.workout.domain.RasteredWorkout
 import java.time.ZonedDateTime
 
 data class CreateWorkoutResponse(
@@ -12,15 +12,17 @@ data class CreateWorkoutResponse(
         val raster: List<List<Double>>
 ) {
     companion object {
-        fun fromWorkout(workout: Workout): CreateWorkoutResponse {
-            return CreateWorkoutResponse(
-                    id = workout.id,
-                    userId = workout.userId,
-                    datetimeStart = workout.datetimeStart,
-                    datetimeEnd = workout.datetimeEnd,
-                    sport = workout.sport,
-                    raster = workout.raster.map { it.toDoubleList() }
-            )
+        fun fromRasteredWorkout(rasteredWorkout: RasteredWorkout): CreateWorkoutResponse {
+            with(rasteredWorkout) {
+                return CreateWorkoutResponse(
+                        id = id,
+                        userId = userId,
+                        datetimeStart = datetimeStart,
+                        datetimeEnd = datetimeEnd,
+                        sport = sport,
+                        raster = raster.map { it.toDoubleList() }
+                )
+            }
         }
     }
 }

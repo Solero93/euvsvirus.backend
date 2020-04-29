@@ -1,6 +1,5 @@
 package com.euvsvirus.euvsvirus
 
-import com.euvsvirus.euvsvirus.workout.domain.PointWithIntensity
 import com.euvsvirus.euvsvirus.workout.domain.SphereCircle
 import com.euvsvirus.euvsvirus.workout.domain.Workout
 import com.euvsvirus.euvsvirus.workout.infrastructure.database.WorkoutDatabase
@@ -16,7 +15,6 @@ object WorkoutMother {
                 datetimeEnd = CURRENT_DATE,
                 userId = userId,
                 sport = "MY_SPORT",
-                raster = listOf(PointWithIntensity.fromNumbers(0.4, 0.5, 100.0)),
                 points = listOf(SphereCircle.fromNumbers(0.4, 0.5, 100.0))
         )
         WorkoutDatabase.createWorkout(workout)
@@ -30,7 +28,6 @@ object WorkoutMother {
                 datetimeEnd = CURRENT_DATE.minusHours(36),
                 userId = userId,
                 sport = "MY_SPORT",
-                raster = listOf(PointWithIntensity.fromNumbers(0.4, 0.5, 100.0)),
                 points = listOf(SphereCircle.fromNumbers(0.4, 0.5, 100.0))
         )
         WorkoutDatabase.createWorkout(workout)

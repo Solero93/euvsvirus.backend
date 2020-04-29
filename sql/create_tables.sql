@@ -42,8 +42,7 @@ create table "Workout"
     datetimestart timestamptz not null,
     datetimeend timestamptz not null,
     sport varchar not null,
-    points varchar[] not null,
-    raster varchar[] not null
+    points varchar[] not null
 );
 
 create index workout_userid_index
